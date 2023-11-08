@@ -30,7 +30,8 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <!-- Left Side Of Navbar -->
                     <ul class="navbar-nav me-auto">
-
+                        <li><a href="{{route('categories.show')}}" class="nav-link">Categories</a></li>
+                        <li><a href="{{route('product.show')}}" class="nav-link">Products</a></li>
                     </ul>
 
                     <!-- Right Side Of Navbar -->

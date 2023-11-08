@@ -11,6 +11,15 @@ class CategoryController extends Controller
     public function create(){
         return view('admin.category.create');
     }
+
+    public function edit($id){
+        $category=Category::find($id);
+        return view('admin.category.edit',compact('category'));
+    }
+    public function index(){
+        $categories=Category::paginate(10);
+        return view('admin.category.index',compact('categories'));
+    }
     public function store(Request $request){
         $this->validate($request,['name'=>'required|min:3','desc'=>'required']);
 
@@ -22,5 +31,22 @@ class CategoryController extends Controller
 
 
 
+    }
+    public function update($id,Request $request){
+        $this->validate($request,['name'=>'required|min:3','desc'=>'required']);
+
+        $category=Category::find($id);
+        $category->name=$request->name;
+        $category->desc=$request->desc;
+        $category->update();
+        return redirect()->back()->with('success','Category Updated successfully....');
+    }
+    public function delete($id){
+        $category=Category::find($id);
+        if ($category){
+            $category->delete();
+           return redirect()->back()->with('success','Category Deleted Successfully...');
+        }
+        return redirect()->back()->with('error','Error while deleting category....');
     }
 }
