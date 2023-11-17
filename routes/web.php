@@ -16,11 +16,13 @@ use Illuminate\Support\Facades\Route;
 Route::get('/', function () {
     return view('welcome');
 });
-
+Route::get('/add-to-cart/{id}',[\App\Http\Controllers\FrontPageController::class,'addToCard'])->name('add-to-cart');
+Route::get('/cart',[\App\Http\Controllers\FrontPageController::class,'cart'])->name('cart');
+Route::get('/update-cart/{id}',[\App\Http\Controllers\FrontPageController::class,'updateCart'])->name('cart.update');
 Auth::routes();
 
 Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
-
+Route::get('/',[\App\Http\Controllers\FrontPageController::class,'products'])->name('products');
 Route::group(['prefix'=>'category','middleware'=>['auth']],function(){
    Route::get('create',[\App\Http\Controllers\Admin\CategoryController::class,'create'])->name('category.create');
    Route::get('/edit/{id}',[\App\Http\Controllers\Admin\CategoryController::class,'edit'])->name('category.edit');

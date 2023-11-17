@@ -15,6 +15,11 @@
 
     <!-- Scripts -->
     @vite(['resources/sass/app.scss', 'resources/js/app.js'])
+    <?php
+    $oldCart=\Session::get('cart1')?\Session::get('cart1'):null;
+
+    $cart=$oldCart?$oldCart:new \App\Models\Cart($oldCart);
+    ?>
 </head>
 <body>
     <div id="app">
@@ -50,6 +55,7 @@
                                 </li>
                             @endif
                         @else
+                            <li class="nav-item"><a class="nav-link" href="{{route('cart')}}">Cart ({{$cart->totalQty()}})</a></li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }}
